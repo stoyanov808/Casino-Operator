@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ game_title }} · Neon Casino{% endblock %}
+
+{% block content %}
+<main class="app">
+  <section class="game-shell">
+    <header class="top-bar game-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">External Game Provider</div>
+        <h1>{{ game_title }}</h1>
+        <p>This game is loaded from the separate game-provider service.</p>
+      </div>
+    </header>
+
+    <section class="provider-game-wrap">
+      <iframe
+        class="provider-game-frame"
+        src="{{ game_url }}"
+        title="{{ game_title }}"
+        allow="fullscreen; autoplay"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </section>
+  </section>
+</main>
+{% endblock %}

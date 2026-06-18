@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}{{ game_title }} · Neon Casino{% endblock %}
+
+{% block content %}
+<style>
+  html,
+  body {
+    height: 100%;
+    overflow: hidden !important;
+  }
+
+  body.provider-mode {
+    overflow: hidden !important;
+  }
+
+  body.provider-mode .flash-wrap {
+    display: none !important;
+  }
+
+  body.provider-mode .app {
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .provider-page-force {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: var(--casino-nav-height, 70px) !important;
+    z-index: 50 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    background: #050b12 !important;
+  }
+
+  .provider-game-frame-force {
+    display: block !important;
+    width: 100vw !important;
+    height: calc(100dvh - var(--casino-nav-height, 70px)) !important;
+    min-width: 100vw !important;
+    min-height: calc(100dvh - var(--casino-nav-height, 70px)) !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #050b12 !important;
+  }
+</style>
+
+<main id="providerPage" class="provider-page-force">
+  <iframe
+    id="providerGameFrame"
+    class="provider-game-frame-force"
+    src="{{ game_url }}"
+    title="{{ game_title }}"
+    allow="fullscreen; autoplay"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</main>
+
+<script>
+  function forceProviderFrameSize() {
+    document.body.classList.add("provider-mode");
+
+    const nav = document.querySelector(".site-nav");
+    const navHeight = nav ? nav.offsetHeight : 0;
+
+    document.documentElement.style.setProperty(
+      "--casino-nav-height",
+      `${navHeight}px`
+    );
+
+    const page = document.getElementById("providerPage");
+    const frame = document.getElementById("providerGameFrame");
+
+    const height = window.innerHeight - navHeight;
+
+    if (page) {
+      page.style.top = `${navHeight}px`;
+      page.style.height = `${height}px`;
+      page.style.width = `${window.innerWidth}px`;
+    }
+
+    if (frame) {
+      frame.style.width = `${window.innerWidth}px`;
+      frame.style.height = `${height}px`;
+    }
+  }
+
+  forceProviderFrameSize();
+  window.addEventListener("resize", forceProviderFrameSize);
+  window.addEventListener("load", forceProviderFrameSize);
+</script>
+{% endblock %}

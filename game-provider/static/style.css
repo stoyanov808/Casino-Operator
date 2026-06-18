@@ -2133,37 +2133,404 @@ body {
   animation-duration: 220ms !important;
 }
 
-/* ---------- PROVIDER IFRAME PAGE ---------- */
-
-body.provider-mode {
-  overflow: hidden;
-}
-
-body.provider-mode .flash-wrap {
-  display: none;
-}
-
-body.provider-mode .app {
-  min-height: 0;
-  padding: 0;
-}
-
-.provider-page {
-  position: relative;
-  z-index: 3;
+.provider-game-wrap {
   width: 100%;
-  height: calc(100dvh - var(--casino-nav-height, 200px));
-  min-height: 0;
-  padding: 0;
-  margin: 0;
+  min-height: 760px;
+  border-radius: 24px;
   overflow: hidden;
-  background: #050b12;
+  border: 1px solid rgba(0, 231, 1, 0.18);
+  background: rgba(3, 8, 12, 0.86);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
 }
 
 .provider-game-frame {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 760px;
   border: 0;
   background: #050b12;
+}
+
+@media (max-width: 700px) {
+  .provider-game-wrap {
+    min-height: 680px;
+    border-radius: 14px;
+  }
+
+  .provider-game-frame {
+    height: 680px;
+  }
+}
+
+/* ---------- PROVIDER IFRAME FIT MODE ---------- */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+.app {
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  padding: clamp(4px, 1.1vmin, 12px);
+  align-items: center;
+  overflow: hidden;
+}
+
+.game-shell {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  padding: clamp(5px, 1vmin, 12px);
+  border-radius: clamp(8px, 1.4vmin, 16px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.top-bar {
+  flex: 0 0 auto;
+  padding: clamp(6px, 1vmin, 12px);
+  margin-bottom: clamp(4px, 0.8vmin, 8px);
+  border-radius: clamp(8px, 1.2vmin, 12px);
+}
+
+.top-bar h1 {
+  margin: 3px 0 0;
+  font-size: clamp(1.1rem, 3.2vmin, 2.4rem);
+}
+
+.top-bar p {
+  display: none;
+}
+
+.eyebrow {
+  font-size: clamp(0.55rem, 1.4vmin, 0.72rem);
+}
+
+.slot-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  padding: clamp(4px, 1vmin, 10px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.jackpot-bar {
+  flex: 0 0 auto;
+  gap: clamp(4px, 0.8vmin, 8px);
+  margin-bottom: clamp(4px, 0.8vmin, 8px);
+}
+
+.jackpot-card {
+  padding: clamp(5px, 1vmin, 10px);
+  border-radius: clamp(7px, 1vmin, 10px);
+}
+
+.jackpot-label,
+.panel-label {
+  font-size: clamp(0.5rem, 1.2vmin, 0.7rem);
+}
+
+.jackpot-value {
+  margin-top: 3px;
+  font-size: clamp(0.85rem, 2.2vmin, 1.55rem);
+}
+
+.board {
+  flex: 0 0 auto;
+  margin: auto;
+}
+
+.bottom-hud {
+  flex: 0 0 auto;
+  margin-top: clamp(4px, 0.9vmin, 8px);
+  padding: clamp(5px, 1vmin, 10px);
+  gap: clamp(5px, 1vmin, 10px);
+}
+
+.balance-amount {
+  font-size: clamp(1.05rem, 3.4vmin, 2.3rem);
+}
+
+.spin-btn {
+  min-width: clamp(110px, 18vmin, 210px);
+  padding: clamp(10px, 1.8vmin, 16px) clamp(14px, 2.5vmin, 24px);
+  font-size: clamp(0.8rem, 1.7vmin, 1.05rem);
+}
+
+.small-btn {
+  min-width: 0;
+  padding: clamp(8px, 1.3vmin, 11px) clamp(9px, 1.6vmin, 13px);
+  font-size: clamp(0.72rem, 1.4vmin, 0.92rem);
+}
+
+.bet-panel input {
+  width: clamp(78px, 10vmin, 120px);
+  padding: clamp(8px, 1.4vmin, 12px);
+}
+
+.result-banner {
+  position: absolute;
+  left: clamp(8px, 1.2vmin, 14px);
+  right: clamp(8px, 1.2vmin, 14px);
+  bottom: clamp(8px, 1.2vmin, 14px);
+  z-index: 40;
+  margin: 0;
+  padding: clamp(8px, 1.2vmin, 12px);
+  text-align: center;
+  font-size: clamp(0.75rem, 1.5vmin, 1rem);
+}
+
+.line-results {
+  display: none !important;
+}
+
+@media (max-height: 720px) {
+  .top-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .bottom-hud {
+    grid-template-columns: 1fr;
+  }
+
+  .balance-panel,
+  .spin-panel,
+  .bet-panel {
+    justify-self: stretch;
+    width: 100%;
+    text-align: center;
+  }
+
+  .balance-amount {
+    justify-content: center;
+  }
+
+  .bet-panel {
+    justify-content: center;
+  }
+}
+
+@media (max-height: 560px) {
+  .jackpot-bar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .jackpot-card {
+    padding: 4px;
+  }
+
+  .jackpot-label {
+    display: none;
+  }
+
+  .bottom-hud {
+    padding: 4px;
+  }
+}
+
+/* ---------- PROVIDER IFRAME FIT MODE v2 ---------- */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+.app {
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  padding: 6px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.game-shell {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  padding: 6px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.top-bar {
+  display: none;
+}
+
+.slot-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  padding: 6px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.jackpot-bar {
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+}
+
+.jackpot-card {
+  min-height: 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.jackpot-chip,
+.jackpot-label {
+  display: none;
+}
+
+.jackpot-value {
+  margin: 0;
+  font-size: clamp(0.95rem, 2.1vw, 1.45rem);
+  line-height: 1;
+}
+
+.board {
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.bottom-hud {
+  grid-row: 3;
+  margin: 0;
+  padding: 6px;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.balance-panel,
+.spin-panel,
+.bet-panel {
+  min-height: 0;
+}
+
+.balance-amount {
+  font-size: clamp(1rem, 2.6vw, 1.9rem);
+}
+
+.spin-btn {
+  min-width: clamp(115px, 14vw, 210px);
+  padding: clamp(10px, 1.4vw, 16px) clamp(16px, 2vw, 28px);
+  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+}
+
+.small-btn {
+  padding: 8px 11px;
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
+}
+
+.bet-panel input {
+  width: clamp(70px, 8vw, 120px);
+  padding: 8px 10px;
+}
+
+.result-banner {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 76px;
+  z-index: 40;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  text-align: center;
+}
+
+.line-results {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .slot-stage {
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .jackpot-bar {
+    gap: 4px;
+  }
+
+  .jackpot-card {
+    padding: 5px;
+  }
+
+  .jackpot-value {
+    font-size: clamp(0.75rem, 3.2vw, 1.05rem);
+  }
+
+  .bottom-hud {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .balance-panel,
+  .spin-panel,
+  .bet-panel {
+    width: 100%;
+    justify-self: stretch;
+    text-align: center;
+  }
+
+  .balance-amount,
+  .bet-panel {
+    justify-content: center;
+  }
+}
+
+@media (max-height: 560px) {
+  .jackpot-card {
+    padding: 3px 5px;
+  }
+
+  .jackpot-value {
+    font-size: clamp(0.7rem, 2.2vh, 1rem);
+  }
+
+  .bottom-hud {
+    padding: 4px;
+  }
+
+  .spin-btn {
+    padding: 8px 14px;
+  }
 }
