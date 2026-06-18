@@ -1,50 +1,74 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: neon-casino
-  namespace: neon-casino
+  name: casino-site
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: neon-casino
+      app: casino-site
   template:
     metadata:
       labels:
-        app: neon-casino
+        app: casino-site
     spec:
       containers:
-        - name: neon-casino
-          image: ??your-registry/neon-casino:latest
+        - name: casino-site
+          image: stoyanov808/casino-site:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
             - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: casino-secret
-                  key: SECRET_KEY
+              value: "change-this-secret-key"
             - name: DATABASE
-              value: /data/casino.db
-            - name: FLASK_DEBUG
-              value: "0"
+              value: "/data/casino.db"
           volumeMounts:
             - name: casino-db-storage
               mountPath: /data
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 5000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 5000
-            initialDelaySeconds: 15
-            periodSeconds: 20
       volumes:
         - name: casino-db-storage
           persistentVolumeClaim:
             claimName: casino-db-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: casino-site-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: casino-site
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: casino-site-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - casino.dev.local
+      secretName: dev-local-tls
+  rules:
+    - host: casino.dev.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: casino-site-service
+                port:
+                  number: 80
