@@ -19,7 +19,9 @@
     </label>
 
     <button class="primary-btn" type="submit">Login</button>
-
+    <a class="btn" href="{{ url_for('adfs.login') }}">
+      Sign in with ADFS
+    </a>
     <div class="auth-link">
       No account? <a href="{{ url_for('auth.register') }}">Register</a>
     </div>

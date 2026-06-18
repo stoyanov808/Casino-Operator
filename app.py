@@ -9,14 +9,28 @@ from games.dice.routes import dice_bp
 from config import Config
 from core.provider_wallet_routes import provider_wallet_bp
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+from core.adfs_auth import adfs_bp, init_adfs_oauth
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app,
+        x_for=1,
+        x_proto=1,
+        x_host=1,
+        x_port=1,
+    )
+    
     app.teardown_appcontext(close_db)
 
+    init_adfs_oauth(app)
     init_db(app)
     init_auth_hooks(app)
+    app.register_blueprint(adfs_bp)
     app.register_blueprint(provider_wallet_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(platform_bp)

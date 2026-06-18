@@ -32,3 +32,33 @@ class Config:
 
     SESSION_COOKIE_NAME = "casino_session"
     SESSION_COOKIE_SAMESITE = "Lax"
+
+    ADFS_ENABLED = os.environ.get(
+        "ADFS_ENABLED",
+        "true",
+    ).lower() == "true"
+
+    ADFS_CLIENT_ID = os.environ.get(
+        "ADFS_CLIENT_ID",
+        "",
+    )
+
+    ADFS_CLIENT_SECRET = os.environ.get(
+        "ADFS_CLIENT_SECRET",
+        "",
+    )
+
+    ADFS_METADATA_URL = os.environ.get(
+        "ADFS_METADATA_URL",
+        "https://WIN-VV4SC04G6I4.dev.local/adfs/.well-known/openid-configuration",
+    )
+
+    ADFS_REDIRECT_URI = os.environ.get(
+        "ADFS_REDIRECT_URI",
+        "https://casino.dev.local/auth/adfs/callback",
+    )
+
+    ADFS_SCOPES = os.environ.get(
+        "ADFS_SCOPES",
+        "openid profile email",
+    )
