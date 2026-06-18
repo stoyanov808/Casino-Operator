@@ -12,9 +12,6 @@ pipeline {
     IMAGE_REPO = 'stoyanov808/casino-site'
     IMAGE_TAG = "${env.BUILD_NUMBER}"
 
-    APP_HOST = 'casino.dev.local'
-    TLS_SECRET_NAME = 'dev-local-tls'
-
     DOCKER_CREDENTIALS_ID = 'DockerHub'
     KUBECONFIG_ID = 'kubernetes'
   }
@@ -99,32 +96,6 @@ spec:
     - name: http
       port: 80
       targetPort: 5000
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ${APP_NAME}-ingress
-  namespace: ${NAMESPACE}
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - ${APP_HOST}
-      secretName: ${TLS_SECRET_NAME}
-  rules:
-    - host: ${APP_HOST}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ${APP_NAME}-service
-                port:
-                  number: 80
 """
       }
     }
@@ -144,7 +115,6 @@ spec:
       steps {
         echo "SUCCESS: Casino app deployed to Kubernetes"
         echo "Image deployed: ${IMAGE_REPO}:${IMAGE_TAG}"
-        echo "App URL: https://${APP_HOST}"
       }
     }
   }
@@ -155,7 +125,7 @@ spec:
     }
 
     success {
-      echo "DONE: Docker image pushed and Kubernetes deployment applied."
+      echo "DONE: Docker image pushed and Kubernetes Deployment + Service applied."
     }
   }
 }
