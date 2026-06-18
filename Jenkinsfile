@@ -45,22 +45,9 @@ pipeline {
       }
     }
 
-    stage('Create Kubernetes YAML') {
+    stage('Create Kubernetes Deployment YAML') {
       steps {
-        writeFile file: 'casino-k8s.yml', text: """
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: casino-db-pvc
-  namespace: ${NAMESPACE}
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
----
+        writeFile file: 'deploymentservice.yml', text: """
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -112,26 +99,13 @@ spec:
       }
     }
 
-    stage('Deploy to Kubernetes') {
+    stage('Deploying App to Kubernetes') {
       steps {
-        withKubeConfig([credentialsId: "${KUBECONFIG_ID}"]) {
-          sh """
-            kubectl apply -f casino-k8s.yml
-            kubectl rollout status deployment/${APP_NAME} -n ${NAMESPACE} --timeout=180s
-          """
-        }
-      }
-    }
-
-    stage('Verify Kubernetes') {
-      steps {
-        withKubeConfig([credentialsId: "${KUBECONFIG_ID}"]) {
-          sh """
-            kubectl get pvc -n ${NAMESPACE}
-            kubectl get deployment ${APP_NAME} -n ${NAMESPACE}
-            kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}
-            kubectl get service ${APP_NAME}-service -n ${NAMESPACE}
-          """
+        script {
+          kubernetesDeploy(
+            configs: "deploymentservice.yml",
+            kubeconfigId: "${KUBECONFIG_ID}"
+          )
         }
       }
     }
