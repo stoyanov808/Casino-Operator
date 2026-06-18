@@ -10,7 +10,7 @@ pipeline {
     NAMESPACE = 'default'
 
     IMAGE_REPO = 'stoyanov808/casino-site'
-    IMAGE_TAG = "${env.BUILD_NUMBER}"
+    IMAGE_TAG = "${BUILD_NUMBER}"
 
     DOCKER_CREDENTIALS_ID = 'DockerHub'
     KUBECONFIG_ID = 'kubernetes'
@@ -48,19 +48,6 @@ pipeline {
     stage('Create Kubernetes YAML') {
       steps {
         writeFile file: 'casino-k8s.yml', text: """
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: casino-db-pvc
-  namespace: ${NAMESPACE}
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -79,7 +66,7 @@ spec:
       hostAliases:
         - ip: "192.168.56.107"
           hostnames:
-            - "WIN-VV4SC04G6I4.dev.local"
+            - "win-vv4sc04g6i4.dev.local"
 
       containers:
         - name: ${APP_NAME}
@@ -112,7 +99,7 @@ spec:
               value: "EDng33qWTq-ECPEZYK7ApOQjynt8TYzGcFGDRJol"
 
             - name: ADFS_METADATA_URL
-              value: "https://WIN-VV4SC04G6I4.dev.local/adfs/.well-known/openid-configuration"
+              value: "https://win-vv4sc04g6i4.dev.local/adfs/.well-known/openid-configuration"
 
             - name: ADFS_REDIRECT_URI
               value: "https://casino.dev.local/auth/adfs/callback"
@@ -126,8 +113,7 @@ spec:
 
       volumes:
         - name: casino-db-storage
-          persistentVolumeClaim:
-            claimName: casino-db-pvc
+          emptyDir: {}
 
 ---
 apiVersion: v1
