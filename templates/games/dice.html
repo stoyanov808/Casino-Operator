@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Dice · Neon Casino{% endblock %}
+
+{% block content %}
+<main class="app">
+  <section class="game-shell">
+    <header class="top-bar game-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Shared Progressives · Animated Dice Game</div>
+        <h1>Dice</h1>
+        <p>Pick a number from 1 to 6. The die rolls visually when you place your bet.</p>
+      </div>
+
+      <div class="game-hero-assets">
+        <img
+          class="game-hero-card"
+          src="{{ url_for('static', filename='assets/game-card-dice.svg') }}"
+          alt="Dice"
+        />
+
+      </div>
+    </header>
+
+    <section class="slot-stage">
+      <div class="jackpot-bar">
+        <div class="jackpot-card grand">
+          <img
+            class="jackpot-chip"
+            src="{{ url_for('static', filename='assets/chip-green.svg') }}"
+            alt=""
+          />
+
+          <div class="jackpot-label">Grand</div>
+
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotGrand">10,000</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card major">
+          <img
+            class="jackpot-chip"
+            src="{{ url_for('static', filename='assets/chip-green.svg') }}"
+            alt=""
+          />
+
+          <div class="jackpot-label">Major</div>
+
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotMajor">1,500</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card minor">
+          <img
+            class="jackpot-chip"
+            src="{{ url_for('static', filename='assets/chip-green.svg') }}"
+            alt=""
+          />
+
+          <div class="jackpot-label">Minor</div>
+
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotMinor">250</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card mini">
+          <img
+            class="jackpot-chip"
+            src="{{ url_for('static', filename='assets/chip-green.svg') }}"
+            alt=""
+          />
+
+          <div class="jackpot-label">Mini</div>
+
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotMini">50</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dice-table upgraded-dice-table">
+        <div class="dice-stage">
+          <div class="dice-shadow" id="diceShadow"></div>
+
+          <div class="dice-scene" id="diceScene">
+            <div class="dice-cube" id="diceCube">
+              <div class="dice-face3d face-front">
+                <span class="pip pos-c"></span>
+              </div>
+
+              <div class="dice-face3d face-back">
+                <span class="pip pos-tl"></span>
+                <span class="pip pos-tr"></span>
+                <span class="pip pos-ml"></span>
+                <span class="pip pos-mr"></span>
+                <span class="pip pos-bl"></span>
+                <span class="pip pos-br"></span>
+              </div>
+
+              <div class="dice-face3d face-right">
+                <span class="pip pos-tl"></span>
+                <span class="pip pos-c"></span>
+                <span class="pip pos-br"></span>
+              </div>
+
+              <div class="dice-face3d face-left">
+                <span class="pip pos-tl"></span>
+                <span class="pip pos-tr"></span>
+                <span class="pip pos-bl"></span>
+                <span class="pip pos-br"></span>
+              </div>
+
+              <div class="dice-face3d face-top">
+                <span class="pip pos-tl"></span>
+                <span class="pip pos-br"></span>
+              </div>
+
+              <div class="dice-face3d face-bottom">
+                <span class="pip pos-tl"></span>
+                <span class="pip pos-tr"></span>
+                <span class="pip pos-c"></span>
+                <span class="pip pos-bl"></span>
+                <span class="pip pos-br"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dice-controls">
+          <label>
+            <span class="panel-label">Pick</span>
+
+            <select id="pick">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </label>
+
+          <label>
+            <span class="panel-label">Bet</span>
+
+            <input
+              id="bet"
+              type="number"
+              min="1"
+              value="10"
+            />
+          </label>
+
+          <button id="rollBtn" class="spin-btn">Roll Dice</button>
+        </div>
+      </div>
+
+      <div class="bottom-hud single">
+        <div class="balance-panel">
+          <div class="panel-label">Balance</div>
+
+          <div class="balance-amount">
+            <span class="money-sign">$</span>
+            <span id="balance">1,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="resultBanner" class="result-banner hidden"></div>
+    </section>
+  </section>
+</main>
+
+<div id="revealOverlay" class="reveal-overlay hidden">
+  <div class="reveal-box">
+    <div class="reveal-title">Reveal Bonus</div>
+    <div class="reveal-subtitle">Pick all 3 cards to reveal your jackpot</div>
+
+    <div class="reveal-cards">
+      <button class="reveal-card" data-index="0">?</button>
+      <button class="reveal-card" data-index="1">?</button>
+      <button class="reveal-card" data-index="2">?</button>
+    </div>
+
+    <div id="revealResult" class="reveal-result"></div>
+  </div>
+</div>
+
+<div id="particles"></div>
+
+<script src="{{ url_for('static', filename='dice.js') }}"></script>
+{% endblock %}

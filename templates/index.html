@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Fruit Fortune 40</title>
+
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <section class="game-shell">
+      <header class="top-bar">
+        <div>
+          <div class="eyebrow">40 Fixed Lines · Left to Right · Reveal Jackpots · 5000x Max Win</div>
+          <h1>Fruit Fortune 40</h1>
+          <p>Dark casino layout · payout-based symbol rarity · jackpot reveal bonus</p>
+        </div>
+      </header>
+
+      <section id="stage" class="slot-stage">
+        <div class="jackpot-bar">
+          <div class="jackpot-card grand">
+            <div class="jackpot-label">Grand</div>
+            <div class="jackpot-value">
+              <span class="money-sign">$</span>
+              <span id="jackpotGrand">10,000</span>
+            </div>
+          </div>
+
+          <div class="jackpot-card major">
+            <div class="jackpot-label">Major</div>
+            <div class="jackpot-value">
+              <span class="money-sign">$</span>
+              <span id="jackpotMajor">1,500</span>
+            </div>
+          </div>
+
+          <div class="jackpot-card minor">
+            <div class="jackpot-label">Minor</div>
+            <div class="jackpot-value">
+              <span class="money-sign">$</span>
+              <span id="jackpotMinor">250</span>
+            </div>
+          </div>
+
+          <div class="jackpot-card mini">
+            <div class="jackpot-label">Mini</div>
+            <div class="jackpot-value">
+              <span class="money-sign">$</span>
+              <span id="jackpotMini">50</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="board" class="board">
+          <svg id="lineOverlay" class="line-overlay"></svg>
+          <div id="reels" class="reels"></div>
+        </div>
+
+        <div class="bottom-hud">
+          <div class="balance-panel">
+            <div class="panel-label">Balance</div>
+            <div class="balance-amount">
+              <span class="money-sign">$</span>
+              <span id="balance">1,000</span>
+            </div>
+          </div>
+
+          <div class="spin-panel">
+            <button id="spinBtn" class="spin-btn">Spin</button>
+            <div id="freeSpinsPanel" class="free-spin-panel hidden">
+              Free Spins: <span id="freeSpins">0</span>
+            </div>
+          </div>
+
+          <div class="bet-panel">
+            <label>
+              <span class="panel-label">Bet</span>
+              <input id="bet" type="number" min="1" value="10" />
+            </label>
+
+            <button id="turboBtn" class="small-btn">Turbo</button>
+            <button id="maxBtn" class="small-btn">Max</button>
+          </div>
+        </div>
+
+        <div id="resultBanner" class="result-banner hidden"></div>
+        <div id="lineResults" class="line-results"></div>
+
+        <section class="info-panel">
+          <h2>Info & Rules</h2>
+
+          <div class="info-grid">
+            <div>
+              <h3>40 Fixed Lines</h3>
+              <p>
+                Wins pay only left to right from reel 1. Minimum valid connection is 3 reels.
+                Only connected winning symbols light up.
+              </p>
+            </div>
+
+            <div>
+              <h3>Payout-Based Rarity</h3>
+              <p>
+                Lower-paying symbols appear more often. Higher-paying symbols become harder
+                to land on reels 3, 4, and 5.
+              </p>
+            </div>
+
+            <div>
+              <h3>Cluster-Style Drops</h3>
+              <p>
+                Fruits can still land in grouped areas, but cluster spreading is weaker after reel 2.
+                Clusters do not pay by themselves.
+              </p>
+            </div>
+
+            <div>
+              <h3>Free Spins</h3>
+              <p>
+                3 Scatters award 10 Free Spins. 4 Scatters award 15. 5 or more Scatters award 20.
+                During Free Spins, Wilds can show 2x or 3x multipliers.
+              </p>
+            </div>
+
+            <div>
+              <h3>Reveal Jackpot Bonus</h3>
+              <p>
+                After a paid base spin, there is a random chance to enter the reveal bonus.
+                Reveal 3 matching Mini, Minor, Major, or Grand symbols to win that jackpot.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <div id="winOverlay" class="win-overlay hidden">
+    <div id="winOverlayTitle" class="win-overlay-title">BIG WIN</div>
+    <div class="win-overlay-amount">$<span id="winOverlayAmount">0</span></div>
+  </div>
+
+  <div id="revealOverlay" class="reveal-overlay hidden">
+    <div class="reveal-box">
+      <div class="reveal-title">Reveal Bonus</div>
+      <div class="reveal-subtitle">Pick all 3 cards to reveal your jackpot</div>
+
+      <div class="reveal-cards">
+        <button class="reveal-card" data-index="0">?</button>
+        <button class="reveal-card" data-index="1">?</button>
+        <button class="reveal-card" data-index="2">?</button>
+      </div>
+
+      <div id="revealResult" class="reveal-result"></div>
+    </div>
+  </div>
+
+  <div id="particles"></div>
+
+  <script src="/static/game.js"></script>
+</body>
+</html>

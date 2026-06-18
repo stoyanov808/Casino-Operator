@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Login · Neon Casino{% endblock %}
+
+{% block content %}
+<main class="auth-page">
+  <form class="auth-card" method="post">
+    <h1>Login</h1>
+    <p>Enter the play-money casino lobby.</p>
+
+    <label>
+      Username
+      <input name="username" required />
+    </label>
+
+    <label>
+      Password
+      <input name="password" type="password" required />
+    </label>
+
+    <button class="primary-btn" type="submit">Login</button>
+
+    <div class="auth-link">
+      No account? <a href="{{ url_for('auth.register') }}">Register</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

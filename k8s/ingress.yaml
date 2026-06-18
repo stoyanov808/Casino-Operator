@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: neon-casino-ingress
+  namespace: neon-casino
+spec:
+  rules:
+    - host: casino.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neon-casino-service
+                port:
+                  number: 80

@@ -1,0 +1,9 @@
+/* Copy this into static/style.css for darker, Stake-inspired styling. */
+:root{--bg-main:#0f212e;--bg-deep:#071824;--panel:#1a2c38;--panel-soft:#213743;--panel-dark:#102733;--line:#2f4553;--text:#f5f7fa;--muted:#b1bad3;--green:#00e701;--green-dark:#00b801;}
+body{background:radial-gradient(circle at 18% 8%,rgba(0,231,1,.08),transparent 28%),radial-gradient(circle at 85% 18%,rgba(20,117,225,.11),transparent 30%),radial-gradient(circle at 50% 100%,rgba(0,231,1,.055),transparent 34%),linear-gradient(180deg,#0f212e 0%,#071824 52%,#050f17 100%);position:relative;}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(rgba(47,69,83,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(47,69,83,.16) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(circle at center,black,transparent 78%);}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(0,231,1,.12),transparent 5%),radial-gradient(circle at 78% 22%,rgba(20,117,225,.12),transparent 6%),radial-gradient(circle at 70% 78%,rgba(0,231,1,.08),transparent 7%);animation:casinoOrbs 9s ease-in-out infinite alternate;}
+@keyframes casinoOrbs{from{transform:translate3d(0,0,0) scale(1);opacity:.72}to{transform:translate3d(0,-18px,0) scale(1.05);opacity:1}}
+.game-shell,.slot-stage,.auth-card,.game-card,.jackpot-card,.bottom-hud,.result-banner{box-shadow:0 18px 60px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.035)}
+.game-card{background:radial-gradient(circle at 50% 0%,rgba(0,231,1,.075),transparent 42%),linear-gradient(180deg,#213743,#102733)}
+.game-card:hover{box-shadow:0 0 0 1px rgba(0,231,1,.24),0 20px 60px rgba(0,0,0,.45),0 0 30px rgba(0,231,1,.08)}

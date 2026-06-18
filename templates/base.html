@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{% block title %}Neon Casino{% endblock %}</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+
+  <div class="casino-bg">
+    <div class="casino-bg-grid"></div>
+    <div class="casino-bg-orb orb-one"></div>
+    <div class="casino-bg-orb orb-two"></div>
+    <div class="casino-bg-orb orb-three"></div>
+  </div>
+
+  <nav class="site-nav">
+    <a class="brand-logo-link" href="{{ url_for('platform.lobby') if current_user else url_for('auth.login') }}">
+      <img
+        class="brand-logo"
+        src="{{ url_for('static', filename='assets/neon-casino-logo.svg') }}"
+        alt="Neon Casino"
+      />
+    </a>
+
+    <div class="nav-links">
+      {% if current_user %}
+        <a href="{{ url_for('platform.lobby') }}">Lobby</a>
+        <a href="{{ url_for('slot.page') }}">Fruit Fortune</a>
+        <a href="{{ url_for('dice.page') }}">Dice</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <a href="{{ url_for('auth.register') }}">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</body>
+</html>

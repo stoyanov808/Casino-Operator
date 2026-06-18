@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Lobby · Neon Casino{% endblock %}
+
+{% block content %}
+<main class="app">
+  <section class="game-shell lobby-shell">
+    <header class="top-bar lobby-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Shared Progressive Casino</div>
+        <h1>Casino Lobby</h1>
+        <p>Welcome, {{ current_user.username }}. Every game feeds the same shared progressive jackpot pools.</p>
+      </div>
+
+      <img
+        class="hero-badge"
+        src="{{ url_for('static', filename='assets/shared-jackpot-badge.svg') }}"
+        alt="Shared Jackpot"
+      />
+    </header>
+
+    <section class="slot-stage">
+      <div class="jackpot-bar">
+        <div class="jackpot-card grand">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Grand</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span>{{ "%.2f"|format(jackpots.GRAND) }}</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card major">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Major</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span>{{ "%.2f"|format(jackpots.MAJOR) }}</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card minor">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Minor</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span>{{ "%.2f"|format(jackpots.MINOR) }}</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card mini">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Mini</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span>{{ "%.2f"|format(jackpots.MINI) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lobby-balance">
+        <div>
+          <div class="panel-label">Your Balance</div>
+          <div class="balance-amount">
+            <span class="money-sign">$</span>
+            <span>{{ "%.2f"|format(current_user.balance) }}</span>
+          </div>
+        </div>
+
+        <img
+          class="balance-chip"
+          src="{{ url_for('static', filename='assets/chip-green.svg') }}"
+          alt="Casino chip"
+        />
+      </div>
+
+      <div class="lobby-grid">
+        <a class="game-card visual-game-card" href="{{ url_for('slot.page') }}">
+          <img
+            class="game-card-art"
+            src="{{ url_for('static', filename='assets/game-card-fruit.svg') }}"
+            alt="Fruit Fortune 40"
+          />
+
+          <div class="game-card-body">
+            <h2>Fruit Fortune 40</h2>
+            <p>40-line slot with free spins and shared jackpot reveal.</p>
+          </div>
+        </a>
+
+        <a class="game-card visual-game-card" href="{{ url_for('dice.page') }}">
+          <img
+            class="game-card-art"
+            src="{{ url_for('static', filename='assets/game-card-dice.svg') }}"
+            alt="Dice"
+          />
+
+          <div class="game-card-body">
+            <h2>Dice</h2>
+            <p>Pick a number from 1 to 6. Hit the roll to win 5x.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </section>
+</main>
+{% endblock %}

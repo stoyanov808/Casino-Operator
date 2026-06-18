@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Fruit Fortune 40 · Neon Casino{% endblock %}
+
+{% block content %}
+<main class="app">
+  <section class="game-shell">
+    <header class="top-bar game-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">40 Fixed Lines · Shared Progressives · Free Spins</div>
+        <h1>Fruit Fortune 40</h1>
+        <p>
+          Spin the 5×4 reels, trigger free spins with scatters, or buy the bonus
+          for 100× your selected bet.
+        </p>
+      </div>
+
+      <div class="game-hero-assets">
+        <img
+          class="game-hero-card"
+          src="{{ url_for('static', filename='assets/game-card-fruit.svg') }}"
+          alt="Fruit Fortune"
+        />
+
+        <img
+          class="hero-chip"
+          src="{{ url_for('static', filename='assets/chip-green.svg') }}"
+          alt=""
+        />
+      </div>
+    </header>
+
+    <section class="slot-stage">
+      <div class="jackpot-bar">
+        <div class="jackpot-card grand">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Grand</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotGrand">10,000</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card major">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Major</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotMajor">1,500</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card minor">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Minor</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotMinor">250</span>
+          </div>
+        </div>
+
+        <div class="jackpot-card mini">
+          <img class="jackpot-chip" src="{{ url_for('static', filename='assets/chip-green.svg') }}" alt="" />
+          <div class="jackpot-label">Mini</div>
+          <div class="jackpot-value">
+            <span class="money-sign">$</span>
+            <span id="jackpotMini">50</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="board" class="board">
+        <svg id="lineOverlay" class="line-overlay"></svg>
+        <div id="reels" class="reels"></div>
+      </div>
+
+      <div class="bottom-hud">
+        <div class="balance-panel">
+          <div class="panel-label">Balance</div>
+
+          <div class="balance-amount">
+            <span class="money-sign">$</span>
+            <span id="balance">1,000</span>
+          </div>
+        </div>
+
+        <div class="spin-panel">
+          <button id="spinBtn" class="spin-btn" type="button">Spin</button>
+          <div id="freeSpinsPanel" class="free-spin-panel hidden"></div>
+        </div>
+
+        <div class="bet-panel">
+          <label>
+            <span class="panel-label">Bet</span>
+            <input id="bet" type="number" min="1" value="10" />
+          </label>
+
+          <button id="turboBtn" class="small-btn" type="button">Turbo</button>
+          <button id="maxBtn" class="small-btn" type="button">Max</button>
+
+          <button id="buyBonusBtn" class="buy-bonus-btn" type="button">
+            Buy Bonus
+            <span>$<span id="buyBonusCost">1,000</span></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="resultBanner" class="result-banner hidden"></div>
+      <div id="lineResults" class="line-results"></div>
+    </section>
+  </section>
+</main>
+
+<div id="winOverlay" class="win-overlay hidden">
+  <div class="win-overlay-title">WIN</div>
+  <div class="win-overlay-amount">$0</div>
+</div>
+
+<div id="revealOverlay" class="reveal-overlay hidden">
+  <div class="reveal-box">
+    <div class="reveal-title">Reveal Bonus</div>
+    <div class="reveal-subtitle">Pick all 3 cards to reveal your jackpot</div>
+
+    <div class="reveal-cards">
+      <button class="reveal-card" data-index="0">?</button>
+      <button class="reveal-card" data-index="1">?</button>
+      <button class="reveal-card" data-index="2">?</button>
+    </div>
+
+    <div id="revealResult" class="reveal-result"></div>
+  </div>
+</div>
+
+<div id="particles"></div>
+
+<script src="{{ url_for('static', filename='slot-40FortuneLane.js') }}"></script>
+{% endblock %}
